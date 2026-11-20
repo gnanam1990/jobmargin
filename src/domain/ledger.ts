@@ -57,7 +57,6 @@ export function postCost(
   input: { kind?: string; amount_minor?: number; note?: string; evidence_ref?: string; dedupe_key?: string },
 ) {
   const job = jobFor(db, actor, jobId);
-  if (job.status === 'closed') throw conflict('JOB_CLOSED', 'job is closed');
   const kind = input.kind;
   if (kind === 'labor' || kind === 'infra') requireRole(actor, 'lead', 'worker', 'finance', 'owner');
   else if (kind === CREDIT_KIND) requireRole(actor, 'owner', 'finance');
@@ -86,9 +85,10 @@ export function postCost(
     });
     const op = recordOperation(db, actor, {
       action: 'cost.post', targetType: 'job', targetId: jobId,
-      payload: input, decisionCode: 'COST_POSTED', detail: { entry_seq: seq, kind },
+      payload: input, decisionCode: 'COST_POSTED',
+      detail: { entry_seq: seq, kind, post_close: job.status === 'closed' },
     });
-    return { job_id: jobId, entry_seq: seq, deduped: false, operation: op };
+    return { job_id: jobId, entry_seq: seq, deduped: false, post_close: job.status === 'closed', operation: op };
   });
 }
 

@@ -1,7 +1,7 @@
 {
   "project": "JobMargin",
   "packVersion": "1.0",
-  "testedSha": "d2e330de2bcc2e28a9e08154fe70cee777adece3",
+  "testedSha": "958a32174d422e8fccbcacdbf38035ba4909bf43",
   "targetBranch": "devin/jobmargin",
   "modules": [
     {
@@ -72,16 +72,20 @@
     {
       "id": "M06",
       "title": "Delivery and close",
-      "state": "active",
-      "owner": null,
-      "commands": [],
-      "evidence": [],
-      "nextAction": "Capture artifact digest, customer acceptance, realized revenue, expense completeness and immutable close versions. Permit post-close corrections via a new version."
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 25 tests pass"
+      ],
+      "evidence": [
+        "test/m06-close.test.ts"
+      ],
+      "nextAction": "M06 accepted; next module M07 operator console and exports"
     },
     {
       "id": "M07",
       "title": "Operator console and exports",
-      "state": "pending",
+      "state": "active",
       "owner": null,
       "commands": [],
       "evidence": [],

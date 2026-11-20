@@ -5,6 +5,7 @@ import * as ledger from '../domain/ledger.ts';
 import * as reservations from '../domain/reservations.ts';
 import * as dispatch from '../domain/dispatch.ts';
 import * as receipts from '../domain/receipts.ts';
+import * as delivery from '../domain/delivery.ts';
 import * as reports from '../domain/reports.ts';
 import { listProviders } from '../providers/registry.ts';
 import { unauthorized } from '../domain/errors.ts';
@@ -72,6 +73,15 @@ export function buildRouter(db: DatabaseSync): Router {
   r.get('/exceptions', (c: Ctx) => ({ exceptions: receipts.listExceptions(c.db, c.actor) }));
   r.post('/exceptions/{id}/resolve', (c: Ctx) =>
     receipts.resolveException(c.db, c.actor, c.params.id, c.body));
+
+  // ---- FR-06: delivery, acceptance, close ---------------------------------
+  r.post('/jobs/{id}/deliveries', (c: Ctx) =>
+    delivery.deliver(c.db, c.actor, c.params.id, c.body));
+  r.post('/deliveries/{id}/accept', (c: Ctx) =>
+    delivery.accept(c.db, c.actor, c.params.id));
+  r.get('/deliveries/{id}', (c: Ctx) => delivery.deliveryDetail(c.db, c.actor, c.params.id));
+  r.post('/jobs/{id}/close', (c: Ctx) => delivery.closeJob(c.db, c.actor, c.params.id));
+  r.get('/jobs/{id}/closes', (c: Ctx) => ({ closes: delivery.closeVersions(c.db, c.actor, c.params.id) }));
 
   // ---- console (server-rendered operator UI) ---------------------------
   r.get('/', (c) => sendHtml(c.res, 200, consoleUi.layout(consoleUi.home(c))), { auth: false });
