@@ -50,3 +50,7 @@ Greenfield dedicated repo; stack decision in docs/decisions/0001-stack.md
   re-run the T-007/T-008 paths with `provider_key=kite`.
 - Next agent must reproduce: `node --test` (34 pass at HEAD) and
   `node scripts/replay-pilot.mjs` (all expected outcomes).
+- Clean-checkout proof (release): `git clone --local --template= . <scratch>`
+  at 6577f23 → `node --test` 34/34 pass; `node src/migrate.ts`,
+  `node src/seed.ts`, `JM_EMBED_WORKER=1 node src/api.ts` (health 200) and
+  `node scripts/replay-pilot.mjs` all green on macOS arm64, Node v22.23.1.
