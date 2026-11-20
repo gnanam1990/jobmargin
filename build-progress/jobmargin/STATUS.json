@@ -1,7 +1,7 @@
 {
   "project": "JobMargin",
   "packVersion": "1.0",
-  "testedSha": null,
+  "testedSha": "f2eaf826c11d8aca286b0c9d5c66fefe8aaf7b88",
   "targetBranch": "devin/jobmargin",
   "modules": [
     {
@@ -20,16 +20,20 @@
     {
       "id": "M02",
       "title": "Cost attribution",
-      "state": "active",
-      "owner": null,
-      "commands": [],
-      "evidence": [],
-      "nextAction": "Implement append-only direct labor, infra and provider expense entries and shared allocation. Surface the unallocated residual and evidence for adjustments."
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 9 tests pass"
+      ],
+      "evidence": [
+        "test/m02-attribution.test.ts"
+      ],
+      "nextAction": "M02 accepted; next module M03 reservation and concurrency"
     },
     {
       "id": "M03",
       "title": "Reservation and concurrency",
-      "state": "pending",
+      "state": "active",
       "owner": null,
       "commands": [],
       "evidence": [],
