@@ -29,6 +29,9 @@ Greenfield dedicated repo; stack decision in docs/decisions/0001-stack.md
   - `node --test` → exit 0, 34 tests pass
   - `node scripts/replay-pilot.mjs` → exit 0 → PILOT-RESULT.md (all expected
     outcomes observed through HTTP + UI)
+  - `node scripts/browser-check.mjs` → exit 0 → BROWSER-RESULT.md (28/28
+    checks; real CDP-driven Chrome for Testing 158 headless shell, console
+    forms + 320px/keyboard/permissions; see BROWSER.md)
   - `node src/migrate.ts` / `node src/seed.ts` / `node src/api.ts` /
     `node src/worker.ts` — normal entry points; JM_DB, PORT, JM_EMBED_WORKER,
     JM_EMULATOR_MODE, JM_WEBHOOK_SECRET envs.
@@ -48,8 +51,10 @@ Greenfield dedicated repo; stack decision in docs/decisions/0001-stack.md
   obtain the three proofs above, implement execute/status in
   src/providers/kite.ts against the session API, set live_enabled=1, and
   re-run the T-007/T-008 paths with `provider_key=kite`.
-- Next agent must reproduce: `node --test` (34 pass at HEAD) and
-  `node scripts/replay-pilot.mjs` (all expected outcomes).
+- Next agent must reproduce: `node --test` (34 pass at HEAD),
+  `node scripts/replay-pilot.mjs` (all expected outcomes) and
+  `node scripts/browser-check.mjs` (all checks pass; needs a local
+  Chromium binary — auto-found from the Playwright cache).
 - Clean-checkout proof (release): `git clone --local --template= . <scratch>`
   at 6577f23 → `node --test` 34/34 pass; `node src/migrate.ts`,
   `node src/seed.ts`, `JM_EMBED_WORKER=1 node src/api.ts` (health 200) and

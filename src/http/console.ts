@@ -33,7 +33,7 @@ button { cursor: pointer; }
 .muted { color: var(--muted); }
 .ok { color: var(--ok); } .warn { color: var(--warn); } .bad { color: var(--bad); }
 .flash { border:1px solid var(--line); background:#f6f8ff; padding:.5rem .75rem; margin:.5rem 0; }
-section { margin: 1.25rem 0; }
+section { margin: 1.25rem 0; overflow-x: auto; }
 .summary { display:grid; grid-template-columns:repeat(auto-fit,minmax(9rem,1fr)); gap:.5rem; margin:.75rem 0; }
 .summary div { border:1px solid var(--line); padding:.5rem; }
 .summary dt { font-size:.8rem; color:var(--muted); } .summary dd { margin:0; font-weight:600; font-variant-numeric:tabular-nums; }
