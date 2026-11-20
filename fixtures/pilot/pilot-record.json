@@ -1,0 +1,56 @@
+{
+  "id": "pilot-sample-001",
+  "label": "SYNTHETIC PILOT SAMPLE — rights-cleared fixture, no real customer data. Replayable through the normal HTTP and UI entry points.",
+  "tenant": "agency-1",
+  "currency": "USD",
+  "steps": [
+    {
+      "op": "create_job", "actor": "lead",
+      "input": { "client_id": "client-acme", "title": "Pilot replay — ACME fixed-price report", "currency": "USD" },
+      "expect": { "status": 200 }
+    },
+    {
+      "op": "quote", "actor": "lead",
+      "input": { "price_minor": 1000, "min_margin_minor": 300 }
+    },
+    { "op": "lock_quote", "actor": "lead", "version": 1 },
+    {
+      "op": "post_cost", "actor": "worker",
+      "input": { "kind": "labor", "amount_minor": 680, "note": "attributable labor per sample invoice I-1042" }
+    },
+    {
+      "op": "reserve", "actor": "worker", "key": "pilot-call-a",
+      "input": { "amount_minor": 15, "quote_version": 1 },
+      "expect": { "state": "held" }
+    },
+    {
+      "op": "reserve", "actor": "worker", "key": "pilot-call-b",
+      "input": { "amount_minor": 15, "quote_version": 1 },
+      "expect": { "state": "denied", "denial_code": "INSUFFICIENT_HEADROOM" }
+    },
+    {
+      "op": "reserve", "actor": "worker", "key": "pilot-retry-50",
+      "input": { "amount_minor": 50, "quote_version": 1 },
+      "expect": { "state": "denied", "denial_code": "INSUFFICIENT_HEADROOM" }
+    },
+    {
+      "op": "dispatch", "actor": "worker",
+      "input": { "provider_key": "emulator", "session_ref": "pilot-session-1", "session_cap_minor": 15 }
+    },
+    { "op": "worker_tick" },
+    {
+      "op": "receipt", "actor": "finance",
+      "input": { "provider_key": "emulator", "merchant": "emulator-merchant", "asset": "USDTEST", "amount_minor": 12 }
+    },
+    {
+      "op": "deliver", "actor": "lead",
+      "input": { "artifact_hash": "sha256:pilot-report-v1", "evidence_ref": "pilot/report.pdf" }
+    },
+    { "op": "accept", "actor": "clientAcme" },
+    {
+      "op": "close", "actor": "finance",
+      "expect": { "realized_margin_minor": 308, "completeness": "complete" }
+    },
+    { "op": "ui_check", "contains": ["\\$3\\.08", "Realized margin"] }
+  ]
+}
