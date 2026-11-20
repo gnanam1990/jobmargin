@@ -1,7 +1,7 @@
 {
   "project": "JobMargin",
   "packVersion": "1.0",
-  "testedSha": "958a32174d422e8fccbcacdbf38035ba4909bf43",
+  "testedSha": "0ebb7c6fc9f97265d14b4b33cec09b06990ceb9d",
   "targetBranch": "devin/jobmargin",
   "modules": [
     {
@@ -85,16 +85,20 @@
     {
       "id": "M07",
       "title": "Operator console and exports",
-      "state": "active",
-      "owner": null,
-      "commands": [],
-      "evidence": [],
-      "nextAction": "Expose denial shortfall, reservation owners, unallocated costs, acceptance and adjustment lineage. Generate per-job CSV and a reconciliation view."
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 29 tests pass"
+      ],
+      "evidence": [
+        "test/m07-console.test.ts"
+      ],
+      "nextAction": "M07 accepted; next module M08 restart and pilot proof"
     },
     {
       "id": "M08",
       "title": "Restart and pilot proof",
-      "state": "pending",
+      "state": "active",
       "owner": null,
       "commands": [],
       "evidence": [],

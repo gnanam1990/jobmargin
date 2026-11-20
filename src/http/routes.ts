@@ -83,6 +83,19 @@ export function buildRouter(db: DatabaseSync): Router {
   r.post('/jobs/{id}/close', (c: Ctx) => delivery.closeJob(c.db, c.actor, c.params.id));
   r.get('/jobs/{id}/closes', (c: Ctx) => ({ closes: delivery.closeVersions(c.db, c.actor, c.params.id) }));
 
+  // ---- FR-07: reconciliation view & CSV export -----------------------------
+  r.get('/jobs/{id}/reconciliation', (c: Ctx) =>
+    reports.reconciliationView(c.db, c.actor, c.params.id));
+  r.get('/jobs/{id}/export.csv', (c: Ctx) => {
+    const v = c.url.searchParams.get('version');
+    const out = reports.exportCsv(c.db, c.actor, c.params.id, v ? Number(v) : undefined);
+    c.res.writeHead(200, {
+      'content-type': 'text/csv; charset=utf-8',
+      'content-disposition': `attachment; filename="${out.filename}"`,
+    });
+    c.res.end(out.csv);
+  });
+
   // ---- console (server-rendered operator UI) ---------------------------
   r.get('/', (c) => sendHtml(c.res, 200, consoleUi.layout(consoleUi.home(c))), { auth: false });
   r.get('/login', (c) => sendHtml(c.res, 200, consoleUi.layout(consoleUi.loginPage())), { auth: false });
@@ -90,6 +103,10 @@ export function buildRouter(db: DatabaseSync): Router {
   r.get('/ui/jobs', (c) => sendHtml(c.res, 200, consoleUi.layout(consoleUi.jobList(c), c.actor)));
   r.get('/ui/jobs/{id}', (c) =>
     sendHtml(c.res, 200, consoleUi.layout(consoleUi.jobPage(c), c.actor)));
+  r.get('/ui/jobs/{id}/reconciliation', (c) =>
+    sendHtml(c.res, 200, consoleUi.layout(consoleUi.reconPage(c), c.actor)));
+  r.get('/ui/exceptions', (c) =>
+    sendHtml(c.res, 200, consoleUi.layout(consoleUi.exceptionsPage(c), c.actor)));
 
   return r;
 }

@@ -127,7 +127,7 @@ export function closeJob(db: DatabaseSync, actor: Actor, jobId: string) {
         completeness, open_flag_count: flags.length,
       },
     });
-    return { job_id: jobId, version, completeness, realized_margin_minor: margin, ledger_cursor: cursor, operation: op };
+    return { job_id: jobId, version, completeness, open_flag_count: flags.length, realized_margin_minor: margin, ledger_cursor: cursor, operation: op };
   });
 }
 
