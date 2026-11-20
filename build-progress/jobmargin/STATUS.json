@@ -1,0 +1,127 @@
+{
+  "project": "JobMargin",
+  "packVersion": "1.0",
+  "testedSha": "a80f1a4cdf14f89aeceb995e6024b86c400aa9ea",
+  "targetBranch": "devin/jobmargin",
+  "modules": [
+    {
+      "id": "M01",
+      "title": "Job contracts and identity",
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 5 tests pass (T-001, T-002, INV-01, migration)"
+      ],
+      "evidence": [
+        "test/m01-contracts.test.ts"
+      ],
+      "nextAction": "M01 accepted; next module M02 cost attribution"
+    },
+    {
+      "id": "M02",
+      "title": "Cost attribution",
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 9 tests pass"
+      ],
+      "evidence": [
+        "test/m02-attribution.test.ts"
+      ],
+      "nextAction": "M02 accepted; next module M03 reservation and concurrency"
+    },
+    {
+      "id": "M03",
+      "title": "Reservation and concurrency",
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 13 tests pass"
+      ],
+      "evidence": [
+        "test/m03-reservations.test.ts"
+      ],
+      "nextAction": "M03 accepted; next module M04 paid call dispatch"
+    },
+    {
+      "id": "M04",
+      "title": "Paid call dispatch",
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 18 tests pass"
+      ],
+      "evidence": [
+        "test/m04-dispatch.test.ts"
+      ],
+      "nextAction": "M04 accepted (emulator rail); next module M05 receipt reconciliation"
+    },
+    {
+      "id": "M05",
+      "title": "Receipt and credit reconciliation",
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 21 tests pass"
+      ],
+      "evidence": [
+        "test/m05-receipts.test.ts"
+      ],
+      "nextAction": "M05 accepted; next module M06 delivery and close"
+    },
+    {
+      "id": "M06",
+      "title": "Delivery and close",
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 25 tests pass"
+      ],
+      "evidence": [
+        "test/m06-close.test.ts"
+      ],
+      "nextAction": "M06 accepted; next module M07 operator console and exports"
+    },
+    {
+      "id": "M07",
+      "title": "Operator console and exports",
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 29 tests pass"
+      ],
+      "evidence": [
+        "test/m07-console.test.ts"
+      ],
+      "nextAction": "M07 accepted; next module M08 restart and pilot proof"
+    },
+    {
+      "id": "M08",
+      "title": "Restart and pilot proof",
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 34 tests pass",
+        "node scripts/replay-pilot.mjs  # exit 0, all expected outcomes observed"
+      ],
+      "evidence": [
+        "test/m08-recovery.test.ts",
+        "fixtures/pilot/pilot-record.json",
+        "build-progress/jobmargin/PILOT-RESULT.md"
+      ],
+      "nextAction": "M08 accepted \u2014 all locally feasible modules done; only live Kite integration remains gated externally"
+    }
+  ],
+  "externalDependencies": [
+    {
+      "id": "kite-passport-live",
+      "status": "blocked",
+      "missingProof": [
+        "owner grant covering seller+rail+amount+purpose",
+        "Passport session for this agent",
+        "verified merchant and receipt lookup support"
+      ],
+      "surface": "provider kite live_enabled=0; dispatch denied PROVIDER_UNAVAILABLE"
+    }
+  ]
+}
