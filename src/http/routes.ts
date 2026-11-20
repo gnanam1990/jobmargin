@@ -2,6 +2,8 @@ import type { DatabaseSync } from 'node:sqlite';
 import { Router, sendHtml, type Ctx } from './server.ts';
 import * as jobs from '../domain/jobs.ts';
 import * as ledger from '../domain/ledger.ts';
+import * as reservations from '../domain/reservations.ts';
+import * as reports from '../domain/reports.ts';
 import * as consoleUi from './console.ts';
 
 export function buildRouter(db: DatabaseSync): Router {
@@ -28,6 +30,16 @@ export function buildRouter(db: DatabaseSync): Router {
   r.post('/jobs/{id}/flags', (c: Ctx) => ledger.raiseFlag(c.db, c.actor, c.params.id, c.body));
   r.post('/jobs/{id}/flags/{flag}/resolve', (c: Ctx) =>
     ledger.resolveFlag(c.db, c.actor, c.params.id, c.params.flag, c.body));
+
+  // ---- FR-03: reservations & margin view ---------------------------------
+  r.post('/jobs/{id}/reservations', (c: Ctx) => {
+    const key = c.req.headers['idempotency-key'];
+    const body = { ...c.body, request_key: c.body.request_key ?? (typeof key === 'string' ? key : undefined) };
+    return reservations.createReservation(c.db, c.actor, c.params.id, body);
+  });
+  r.get('/jobs/{id}/reservations', (c: Ctx) =>
+    ({ reservations: reservations.listReservations(c.db, c.actor, c.params.id) }));
+  r.get('/jobs/{id}/margin', (c: Ctx) => reports.marginView(c.db, c.actor, c.params.id));
 
   // ---- console (server-rendered operator UI) ---------------------------
   r.get('/', (c) => sendHtml(c.res, 200, consoleUi.layout(consoleUi.home(c))), { auth: false });

@@ -1,7 +1,7 @@
 {
   "project": "JobMargin",
   "packVersion": "1.0",
-  "testedSha": "f2eaf826c11d8aca286b0c9d5c66fefe8aaf7b88",
+  "testedSha": "5523ff9f6455b645b14ea37716628795e43e9725",
   "targetBranch": "devin/jobmargin",
   "modules": [
     {
@@ -33,16 +33,20 @@
     {
       "id": "M03",
       "title": "Reservation and concurrency",
-      "state": "active",
-      "owner": null,
-      "commands": [],
-      "evidence": [],
-      "nextAction": "Build atomic job-budget reservation and denial reason codes. Validate quote revision, expiry and idempotency payload digest."
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 13 tests pass"
+      ],
+      "evidence": [
+        "test/m03-reservations.test.ts"
+      ],
+      "nextAction": "M03 accepted; next module M04 paid call dispatch"
     },
     {
       "id": "M04",
       "title": "Paid call dispatch",
-      "state": "pending",
+      "state": "active",
       "owner": null,
       "commands": [],
       "evidence": [],
