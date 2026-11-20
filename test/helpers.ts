@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 const TMP_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '.test-tmp');
 mkdirSync(TMP_ROOT, { recursive: true });
 import { openDb, migrate, nowIso } from '../src/db/connection.ts';
+import { ensureProviders } from '../src/providers/registry.ts';
 import { token, uuid } from '../src/domain/ids.ts';
 import { buildRouter } from '../src/http/routes.ts';
 import { createApp } from '../src/http/server.ts';
@@ -62,6 +63,7 @@ function seedInto(db: DatabaseSync, dir: string, dbPath: string): Fixture {
     .run('agency-1', 'Agency One', 'agency', nowIso());
   db.prepare('INSERT INTO tenants (id, name, kind, created_at) VALUES (?,?,?,?)')
     .run('agency-2', 'Agency Two', 'agency', nowIso());
+  ensureProviders(db);
   const actors: FixtureActors = {
     owner: seedActor(db, 'agency-1', 'owner', 'Ada Owner', null) as FixtureActors['owner'],
     lead: seedActor(db, 'agency-1', 'lead', 'Lee Lead', null) as FixtureActors['lead'],

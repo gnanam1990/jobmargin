@@ -3,7 +3,9 @@ import { Router, sendHtml, type Ctx } from './server.ts';
 import * as jobs from '../domain/jobs.ts';
 import * as ledger from '../domain/ledger.ts';
 import * as reservations from '../domain/reservations.ts';
+import * as dispatch from '../domain/dispatch.ts';
 import * as reports from '../domain/reports.ts';
+import { listProviders } from '../providers/registry.ts';
 import * as consoleUi from './console.ts';
 
 export function buildRouter(db: DatabaseSync): Router {
@@ -40,6 +42,13 @@ export function buildRouter(db: DatabaseSync): Router {
   r.get('/jobs/{id}/reservations', (c: Ctx) =>
     ({ reservations: reservations.listReservations(c.db, c.actor, c.params.id) }));
   r.get('/jobs/{id}/margin', (c: Ctx) => reports.marginView(c.db, c.actor, c.params.id));
+
+  // ---- FR-04: dispatch & providers ----------------------------------------
+  r.post('/reservations/{id}/dispatch', (c: Ctx) =>
+    dispatch.dispatchReservation(c.db, c.actor, c.params.id, c.body));
+  r.get('/jobs/{id}/attempts', (c: Ctx) =>
+    ({ attempts: dispatch.listAttempts(c.db, c.actor, c.params.id) }));
+  r.get('/providers', (c: Ctx) => ({ providers: listProviders(c.db) }));
 
   // ---- console (server-rendered operator UI) ---------------------------
   r.get('/', (c) => sendHtml(c.res, 200, consoleUi.layout(consoleUi.home(c))), { auth: false });

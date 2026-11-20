@@ -1,7 +1,7 @@
 {
   "project": "JobMargin",
   "packVersion": "1.0",
-  "testedSha": "5523ff9f6455b645b14ea37716628795e43e9725",
+  "testedSha": "5111e354e70bdf0bc284eb2a474e7f88651207d4",
   "targetBranch": "devin/jobmargin",
   "modules": [
     {
@@ -46,16 +46,20 @@
     {
       "id": "M04",
       "title": "Paid call dispatch",
-      "state": "active",
-      "owner": null,
-      "commands": [],
-      "evidence": [],
-      "nextAction": "Bind the winning reservation to the payment-session cap, provider and rail. Persist a dispatch outbox before invoking the provider and save opaque provider references."
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 18 tests pass"
+      ],
+      "evidence": [
+        "test/m04-dispatch.test.ts"
+      ],
+      "nextAction": "M04 accepted (emulator rail); next module M05 receipt reconciliation"
     },
     {
       "id": "M05",
       "title": "Receipt and credit reconciliation",
-      "state": "pending",
+      "state": "active",
       "owner": null,
       "commands": [],
       "evidence": [],
@@ -87,6 +91,18 @@
       "commands": [],
       "evidence": [],
       "nextAction": "Implement recovery harness for two simultaneous workers, an ambiguous dispatch and a late receipt. Replay a consented pilot record through the normal HTTP and UI paths."
+    }
+  ],
+  "externalDependencies": [
+    {
+      "id": "kite-passport-live",
+      "status": "blocked",
+      "missingProof": [
+        "owner grant covering seller+rail+amount+purpose",
+        "Passport session for this agent",
+        "verified merchant and receipt lookup support"
+      ],
+      "surface": "provider kite live_enabled=0; dispatch denied PROVIDER_UNAVAILABLE"
     }
   ]
 }

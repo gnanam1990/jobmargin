@@ -1,4 +1,5 @@
 import { openDb, migrate, nowIso } from './db/connection.ts';
+import { ensureProviders } from './providers/registry.ts';
 import { token, uuid } from './domain/ids.ts';
 
 /**
@@ -7,6 +8,7 @@ import { token, uuid } from './domain/ids.ts';
  */
 const db = openDb(process.env.JM_DB ?? 'data/jobmargin.db');
 migrate(db);
+ensureProviders(db);
 
 const tenantId = 'demo-agency';
 const existing = db.prepare('SELECT id FROM tenants WHERE id = ?').get(tenantId);
