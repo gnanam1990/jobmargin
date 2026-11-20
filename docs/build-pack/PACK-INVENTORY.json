@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "sha256",
+  "files": [
+    {
+      "path": "CORE-CONTRACT.md",
+      "bytes": 2764,
+      "sha256": "141d620c6d572357eae16068508429854f59bf0cc26697b5d0b8724e80f015ba"
+    },
+    {
+      "path": "DELIVERY.md",
+      "bytes": 2286,
+      "sha256": "de22c8e129118aa09a963f9702f65bc21478f3324d647a46fc4be2896d142cd9"
+    },
+    {
+      "path": "KITE-AND-PROVIDERS.md",
+      "bytes": 2053,
+      "sha256": "ba37d79a284b107560e12b9ed58a32d8130f8b4a0576e1e50372aaff9f82ab10"
+    },
+    {
+      "path": "MASTER-PROMPT.md",
+      "bytes": 2373,
+      "sha256": "77ff307fe8f4e2cc038c2b50d339f398942b1c27213ef86360cae1530eec899b"
+    },
+    {
+      "path": "MODULES.md",
+      "bytes": 1923,
+      "sha256": "0dc68b7a9bc573a68510e713db3e968f4be8c049e8a6a931372927b52240b6f4"
+    },
+    {
+      "path": "PRD.md",
+      "bytes": 4667,
+      "sha256": "59621cffa534a74f03016f484807131ed1d426d6e3351e1d5cea43ecfacc69e2"
+    },
+    {
+      "path": "SECURITY.md",
+      "bytes": 1172,
+      "sha256": "68aad008a7b435b83291c008d39d8ab6abfd3a0ac8f3e6428da85cf51ab2c197"
+    },
+    {
+      "path": "SOURCES.md",
+      "bytes": 2754,
+      "sha256": "b4bebdd2089706e079538d2b81b7e316a8ab59c3db772d7d2d7b3b063a06e189"
+    },
+    {
+      "path": "START-HERE.md",
+      "bytes": 2380,
+      "sha256": "d0fe0e6767e47c42dec51c2424a17660dcdd95ca69273bf6c7f5312237f5c00a"
+    },
+    {
+      "path": "TDD.md",
+      "bytes": 4708,
+      "sha256": "3444108a4e7fa79300cbb55a75a94bc2e4faebc099c542b3c810bc0bb7f66cbf"
+    },
+    {
+      "path": "TEST-PLAN.md",
+      "bytes": 6411,
+      "sha256": "313b3488b9f9c7b5efd4f32979c7a67ddd374f15f2e5c09369f849e0052e23bb"
+    },
+    {
+      "path": "UI-SPEC.md",
+      "bytes": 1925,
+      "sha256": "d0d84139130daa7b4fc5b5cda91ccddf83cfcdd5db757ad206d8c0f497ff9bef"
+    },
+    {
+      "path": "examples/ACCEPTANCE.md",
+      "bytes": 1391,
+      "sha256": "34443e4d8efde5c5e30bca45d700688f8ea2338670bf17f9cf0254fbfd7069fd"
+    },
+    {
+      "path": "pack-check.json",
+      "bytes": 883,
+      "sha256": "dd68b26f9983dca0493c4ec55ba260a2a0ba15db83b3403b1842090a7f9c5111"
+    },
+    {
+      "path": "project-metadata.json",
+      "bytes": 349,
+      "sha256": "eaa6534cffaf54ec766570c3c7b73a3b2bee3a23e485e5e3dbf5d7cb7647a48c"
+    },
+    {
+      "path": "prompts/M01.md",
+      "bytes": 1993,
+      "sha256": "8de3315498095b71b94752fce7695df9b7098aaf22b12404c1560d8255d7fa22"
+    },
+    {
+      "path": "prompts/M02.md",
+      "bytes": 1917,
+      "sha256": "0d3823f492447c752b99fc46cb95374838790b0688aa345053ede78ff905768b"
+    },
+    {
+      "path": "prompts/M03.md",
+      "bytes": 1897,
+      "sha256": "226d63f456aec8520047d319fb96df2f2ce199ddbe44afd65e48fb21668c355b"
+    },
+    {
+      "path": "prompts/M04.md",
+      "bytes": 1951,
+      "sha256": "d40f9743b2474412f645ce918ed4af534ca1d0d18dbffc2e9a891c366d3c2331"
+    },
+    {
+      "path": "prompts/M05.md",
+      "bytes": 1907,
+      "sha256": "91881d4d855c54e2adacd3750a57ae6bd9d476377d364f34b68ff65f3f1d88ed"
+    },
+    {
+      "path": "prompts/M06.md",
+      "bytes": 1974,
+      "sha256": "9031a85c9716da7778315e9ca2527b05a5fdb26ac0341fb071d4280cfedfc370"
+    },
+    {
+      "path": "prompts/M07.md",
+      "bytes": 1901,
+      "sha256": "a8c348ad6834353760df5c2aa025096d0614934686950c17a20dd3fa911afaba"
+    },
+    {
+      "path": "prompts/M08.md",
+      "bytes": 1990,
+      "sha256": "d250372917ef1a5943ca85c3b46b9463c2df96a64952a4fa457de1a2d55ce81d"
+    },
+    {
+      "path": "requirements.json",
+      "bytes": 9110,
+      "sha256": "0345a56484f1fb0b3ece1c0f7201fdb50c355f2b1ecdfafae94bd3968823c3b2"
+    },
+    {
+      "path": "templates/DECISION.md",
+      "bytes": 187,
+      "sha256": "efba2d0badc1b7a429f17d354b6fb9c1122f628ecfec75c7790bbca7d1367a0d"
+    },
+    {
+      "path": "templates/HANDOFF.md",
+      "bytes": 626,
+      "sha256": "869f5229070bd744f872b2e025bb4b3d48a26d9f8f2663e3f41217a088c844e1"
+    },
+    {
+      "path": "templates/PR.md",
+      "bytes": 261,
+      "sha256": "c7e407aa01717b44f33b0fbf51196578fbbdd875a91d45280dc44a7d732b684d"
+    },
+    {
+      "path": "templates/STATUS.json",
+      "bytes": 2844,
+      "sha256": "c6fc575dc89dd67267ba6be08095979c5ff8430fc0b54848391ede4d9869a272"
+    },
+    {
+      "path": "tools/check-build-pack.mjs",
+      "bytes": 33599,
+      "sha256": "befab469d23feaf4b77abb8554dbecd94a2095ef6470c1d6dc70d4c042caa9dc"
+    }
+  ]
+}

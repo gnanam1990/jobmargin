@@ -1,0 +1,80 @@
+{
+  "project": "JobMargin",
+  "packVersion": "1.0",
+  "testedSha": null,
+  "targetBranch": null,
+  "modules": [
+    {
+      "id": "M01",
+      "title": "Job contracts and identity",
+      "state": "pending",
+      "owner": null,
+      "commands": [],
+      "evidence": [],
+      "nextAction": "Persist tenants, operator/client roles, immutable quote revisions, currency and minimum gross margin. Bind the customer to a specific job and version."
+    },
+    {
+      "id": "M02",
+      "title": "Cost attribution",
+      "state": "pending",
+      "owner": null,
+      "commands": [],
+      "evidence": [],
+      "nextAction": "Implement append-only direct labor, infra and provider expense entries and shared allocation. Surface the unallocated residual and evidence for adjustments."
+    },
+    {
+      "id": "M03",
+      "title": "Reservation and concurrency",
+      "state": "pending",
+      "owner": null,
+      "commands": [],
+      "evidence": [],
+      "nextAction": "Build atomic job-budget reservation and denial reason codes. Validate quote revision, expiry and idempotency payload digest."
+    },
+    {
+      "id": "M04",
+      "title": "Paid call dispatch",
+      "state": "pending",
+      "owner": null,
+      "commands": [],
+      "evidence": [],
+      "nextAction": "Bind the winning reservation to the payment-session cap, provider and rail. Persist a dispatch outbox before invoking the provider and save opaque provider references."
+    },
+    {
+      "id": "M05",
+      "title": "Receipt and credit reconciliation",
+      "state": "pending",
+      "owner": null,
+      "commands": [],
+      "evidence": [],
+      "nextAction": "Ingest a provider statement, verify merchant and amount, replace the held estimate with the actual cost, and permit evidence-linked corrections."
+    },
+    {
+      "id": "M06",
+      "title": "Delivery and close",
+      "state": "pending",
+      "owner": null,
+      "commands": [],
+      "evidence": [],
+      "nextAction": "Capture artifact digest, customer acceptance, realized revenue, expense completeness and immutable close versions. Permit post-close corrections via a new version."
+    },
+    {
+      "id": "M07",
+      "title": "Operator console and exports",
+      "state": "pending",
+      "owner": null,
+      "commands": [],
+      "evidence": [],
+      "nextAction": "Expose denial shortfall, reservation owners, unallocated costs, acceptance and adjustment lineage. Generate per-job CSV and a reconciliation view."
+    },
+    {
+      "id": "M08",
+      "title": "Restart and pilot proof",
+      "state": "pending",
+      "owner": null,
+      "commands": [],
+      "evidence": [],
+      "nextAction": "Implement recovery harness for two simultaneous workers, an ambiguous dispatch and a late receipt. Replay a consented pilot record through the normal HTTP and UI paths."
+    }
+  ]
+}
