@@ -4,8 +4,11 @@ import * as jobs from '../domain/jobs.ts';
 import * as ledger from '../domain/ledger.ts';
 import * as reservations from '../domain/reservations.ts';
 import * as dispatch from '../domain/dispatch.ts';
+import * as receipts from '../domain/receipts.ts';
 import * as reports from '../domain/reports.ts';
 import { listProviders } from '../providers/registry.ts';
+import { unauthorized } from '../domain/errors.ts';
+import type { Actor } from '../domain/authz.ts';
 import * as consoleUi from './console.ts';
 
 export function buildRouter(db: DatabaseSync): Router {
@@ -49,6 +52,26 @@ export function buildRouter(db: DatabaseSync): Router {
   r.get('/jobs/{id}/attempts', (c: Ctx) =>
     ({ attempts: dispatch.listAttempts(c.db, c.actor, c.params.id) }));
   r.get('/providers', (c: Ctx) => ({ providers: listProviders(c.db) }));
+
+  // ---- FR-05: receipts, exceptions, reconciliation -----------------------
+  r.post('/receipts/import', (c: Ctx) => receipts.importReceipt(c.db, c.actor, c.body, 'import'));
+  // Provider webhook: shared-secret verified (emulator rail); unverified
+  // callbacks are rejected as evidence of settlement (SECURITY.md).
+  r.post('/receipts/webhook', (c: Ctx) => {
+    const secret = process.env.JM_WEBHOOK_SECRET ?? 'dev-secret';
+    if (c.req.headers['x-webhook-secret'] !== secret) throw unauthorized('invalid webhook signature');
+    const actor: Actor = {
+      id: 'webhook', tenant_id: String(c.body.tenant_id ?? ''), role: 'finance',
+      client_id: null, display_name: 'provider webhook',
+    };
+    return receipts.importReceipt(c.db, actor, c.body, 'webhook');
+  }, { auth: false });
+  r.get('/receipts', (c: Ctx) => ({ receipts: receipts.listReceipts(c.db, c.actor) }));
+  r.get('/jobs/{id}/receipts', (c: Ctx) =>
+    ({ receipts: receipts.listReceipts(c.db, c.actor, c.params.id) }));
+  r.get('/exceptions', (c: Ctx) => ({ exceptions: receipts.listExceptions(c.db, c.actor) }));
+  r.post('/exceptions/{id}/resolve', (c: Ctx) =>
+    receipts.resolveException(c.db, c.actor, c.params.id, c.body));
 
   // ---- console (server-rendered operator UI) ---------------------------
   r.get('/', (c) => sendHtml(c.res, 200, consoleUi.layout(consoleUi.home(c))), { auth: false });
