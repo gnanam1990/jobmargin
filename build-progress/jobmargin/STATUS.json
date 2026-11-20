@@ -1,7 +1,7 @@
 {
   "project": "JobMargin",
   "packVersion": "1.0",
-  "testedSha": "0ebb7c6fc9f97265d14b4b33cec09b06990ceb9d",
+  "testedSha": "a80f1a4cdf14f89aeceb995e6024b86c400aa9ea",
   "targetBranch": "devin/jobmargin",
   "modules": [
     {
@@ -98,11 +98,18 @@
     {
       "id": "M08",
       "title": "Restart and pilot proof",
-      "state": "active",
-      "owner": null,
-      "commands": [],
-      "evidence": [],
-      "nextAction": "Implement recovery harness for two simultaneous workers, an ambiguous dispatch and a late receipt. Replay a consented pilot record through the normal HTTP and UI paths."
+      "state": "accepted",
+      "owner": "implementation-agent",
+      "commands": [
+        "node --test  # exit 0, 34 tests pass",
+        "node scripts/replay-pilot.mjs  # exit 0, all expected outcomes observed"
+      ],
+      "evidence": [
+        "test/m08-recovery.test.ts",
+        "fixtures/pilot/pilot-record.json",
+        "build-progress/jobmargin/PILOT-RESULT.md"
+      ],
+      "nextAction": "M08 accepted \u2014 all locally feasible modules done; only live Kite integration remains gated externally"
     }
   ],
   "externalDependencies": [
