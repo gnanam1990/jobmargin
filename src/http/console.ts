@@ -17,27 +17,47 @@ export function layout(body: string, actor?: Actor | null): string {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JobMargin</title>
 <style>
-:root { --fg:#1a1a1a; --muted:#555; --line:#c9c9c9; --accent:#0b5fff; --ok:#146c2e; --warn:#8a4b00; --bad:#a31212; }
+:root {
+  --paper:#FEF8F0; --ink:#1F1A14; --card:#FFFDF9; --line:#E3D7C2;
+  --accent:#485C11; --accent-hover:#3A4A0D; --accent-ink:#FFFFFF;
+  --muted:#5F564A; --tint:#F6EDDD;
+  --ok:#2E5A18; --warn:#8A4B00; --bad:#A23A1A;
+  --font-ui:'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display:'Crimson Text', Georgia, 'Times New Roman', serif;
+  --font-mono:ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+}
 * { box-sizing: border-box; }
-body { font-family: system-ui, sans-serif; color: var(--fg); margin: 0; line-height: 1.45; }
-header { border-bottom: 1px solid var(--line); padding: .75rem 1rem; display:flex; gap:1rem; align-items:baseline; flex-wrap:wrap; }
-header a { color: var(--accent); }
-main { padding: 1rem; max-width: 62rem; }
+body { font-family: var(--font-ui); background: var(--paper); color: var(--ink); margin: 0; line-height: 1.45; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.2; margin: .1em 0 .4em; }
+h1 { font-size: 1.8rem; } h2 { font-size: 1.3rem; } h3 { font-size: 1.05rem; }
+a { color: var(--accent); text-underline-offset: .15em; }
+a:hover { color: var(--accent-hover); }
+header { border-bottom: 1px solid var(--line); padding: .75rem 1rem; display:flex; gap:1rem; align-items:baseline; flex-wrap:wrap; background: var(--card); }
+header strong { font-family: var(--font-display); font-size: 1.15rem; }
+main { padding: 1rem; max-width: 62rem; margin: 0 auto; }
 table { border-collapse: collapse; width: 100%; margin: .75rem 0; }
-th, td { border: 1px solid var(--line); padding: .35rem .5rem; text-align: left; font-size: .9rem; }
-th { background: #f2f2f2; }
-label { display: block; margin: .5rem 0 .15rem; font-size: .9rem; }
-input, select, button { font: inherit; padding: .35rem .5rem; }
-button { cursor: pointer; }
+th, td { border: 1px solid var(--line); padding: .4rem .55rem; text-align: left; font-size: .9rem; }
+th { background: var(--tint); font-family: var(--font-display); font-size: .95rem; font-weight: 600; }
+td { background: var(--card); }
+label { display: block; margin: .55rem 0 .2rem; font-size: .9rem; font-weight: 500; }
+input, select, button { font: inherit; padding: .4rem .55rem; max-width: 100%; }
+input, select { background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 4px; }
+button { cursor: pointer; background: var(--accent); color: var(--accent-ink); border: 1px solid var(--accent); border-radius: 5px; font-weight: 600; }
+button:hover { background: var(--accent-hover); }
+button:active { transform: translateY(1px); }
+td button { padding: .25rem .5rem; font-size: .85rem; }
+summary { cursor: pointer; color: var(--accent); font-weight: 600; padding: .3rem 0; }
+details { border-top: 1px dashed var(--line); padding: .35rem 0; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
 .muted { color: var(--muted); }
 .ok { color: var(--ok); } .warn { color: var(--warn); } .bad { color: var(--bad); }
-.flash { border:1px solid var(--line); background:#f6f8ff; padding:.5rem .75rem; margin:.5rem 0; }
-section { margin: 1.25rem 0; overflow-x: auto; }
+.flash { border:1px solid var(--line); border-left:4px solid var(--accent); background:var(--tint); padding:.5rem .75rem; margin:.5rem 0; border-radius:4px; }
+section { margin: 1.25rem 0; overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: .9rem 1rem 1rem; }
 .summary { display:grid; grid-template-columns:repeat(auto-fit,minmax(9rem,1fr)); gap:.5rem; margin:.75rem 0; }
-.summary div { border:1px solid var(--line); padding:.5rem; }
-.summary dt { font-size:.8rem; color:var(--muted); } .summary dd { margin:0; font-weight:600; font-variant-numeric:tabular-nums; }
-.money { font-variant-numeric: tabular-nums; text-align: right; }
+.summary div { border:1px solid var(--line); border-radius:6px; padding:.5rem .6rem; background:var(--paper); }
+.summary dt { font-size:.8rem; color:var(--muted); } .summary dd { margin:0; font-weight:600; font-family:var(--font-mono); font-variant-numeric:tabular-nums; }
+.money { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; }
+code { font-family: var(--font-mono); font-size: .85em; }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
 </head>

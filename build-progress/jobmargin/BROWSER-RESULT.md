@@ -1,4 +1,4 @@
-# Browser check result — 2026-11-20T06:55:57.572Z
+# Browser check result — 2026-11-20T08:38:59.951Z
 
 | Check | Expected | Actual |
 |---|---|---|
@@ -8,7 +8,7 @@
 | focus outline visible | non-none outline on keyboard focus | solid 3px |
 | lead sign-in lands on queue | /ui/jobs | /ui/jobs |
 | job created via console form | listed in queue | listed |
-| job page opened from console | job detail at /ui/jobs/<id> | /ui/jobs/36bb101a-0a04-41b5-ab47-6e23aa0d70e7 |
+| job page opened from console | job detail at /ui/jobs/<id> | /ui/jobs/f7465ef8-b165-45db-a5a9-2edf9aa9ba6e |
 | quote locked | locked status visible | locked |
 | headroom shown pre-reservation | $0.20 | $0.20 |
 | two denials shown with code | 2 × INSUFFICIENT_HEADROOM | 2 found |
