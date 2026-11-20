@@ -1,0 +1,17 @@
+{
+  "name": "jobmargin",
+  "version": "0.1.0",
+  "description": "JobMargin — fixed-price job margin ledger for AI operations agencies",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "migrate": "node src/migrate.ts",
+    "seed": "node src/seed.ts",
+    "start": "node src/api.ts",
+    "worker": "node src/worker.ts",
+    "test": "node --test"
+  }
+}
